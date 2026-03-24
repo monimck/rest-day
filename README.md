@@ -13,7 +13,7 @@ Open `index.html` and find the `PUZZLES` array near the top. Add a new entry for
   grade: "V12",             // Always in V# format
   location: "Bishop, CA",   // Where the boulder is
   photo: "./images/mandala.jpg",  // Path to your photo in the images/ folder
-  hint3: "V{12} boulder",   // Shown on 3rd guess
+  hint3: "V12 boulder",   // Shown on 3rd guess
   hint4: "Located in Bishop, CA" // Shown on 4th guess
 }
 ```
