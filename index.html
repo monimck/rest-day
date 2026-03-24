@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#4A5E4A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Climb-a-Day">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/images/icon-512.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Climb-a-Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0EDE6;
+    --bg2: #E8E4DC;
+    --card: #ECEAE3;
+    --green: #4A5E4A;
+    --green-dark: #3A4E3A;
+    --brown: #8B4513;
+    --text: #1C1C1A;
+    --text-muted: #888880;
+    --text-light: #AAAAAA;
+    --red: #C0392B;
+    --white: #FFFFFF;
+    --border: #D8D4CC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  .app {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background: var(--bg);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* SCREENS */
+  .screen { display: none; flex-direction: column; min-height: 100vh; }
+  .screen.active { display: flex; }
+
+  /* HEADER */
+  .header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .header-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text);
+  }
+
+  /* HOME SCREEN */
+  .home-content { padding: 40px 28px 32px; flex: 1; }
+  .home-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--brown);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .home-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    line-height: 0.9;
+    color: var(--text);
+    margin-bottom: 36px;
+    letter-spacing: 0.01em;
+  }
+  .play-btn {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 48px;
+  }
+  .play-btn:hover { background: var(--green-dark); }
+
+  .how-to-play { margin-bottom: 40px; }
+  .how-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .how-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .how-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    margin-top: 1px;
+  }
+  .how-icon svg { width: 22px; height: 22px; }
+  .how-text { font-size: 15px; line-height: 1.5; color: var(--text); }
+
+  .stats-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+  .stats-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .stats-row {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+  }
+  .stat-item { flex: 1; text-align: center; }
+  .stat-item:first-child { border-right: 1px solid var(--border); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .dist-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .dist-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .dist-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    width: 52px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .dist-bar-wrap {
+    flex: 1;
+    height: 28px;
+    background: var(--bg2);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dist-bar {
+    height: 100%;
+    background: var(--bg2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: width 0.6s ease;
+    min-width: 44px;
+  }
+  .dist-bar.highlight { background: var(--green); }
+  .dist-bar.highlight .dist-count { color: white; }
+  .dist-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* GAME SCREEN */
+  .game-content { padding: 20px 20px 24px; flex: 1; display: flex; flex-direction: column; }
+  .game-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--brown);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .game-attempt-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .photo-container {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #C8C5BC;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center center;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .zoom-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: white;
+    border-radius: 20px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+  .zoom-badge svg { width: 14px; height: 14px; }
+
+  .hint-text {
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .guess-input {
+    width: 100%;
+    background: var(--card);
+    border: none;
+    border-radius: 12px;
+    padding: 18px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .guess-input::placeholder { color: var(--text-light); }
+  .guess-input:focus { box-shadow: 0 0 0 2px var(--green); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 20px;
+  }
+  .submit-btn:hover { background: var(--green-dark); }
+  .submit-btn:disabled { background: var(--text-light); cursor: not-allowed; }
+
+  .attempts-section { margin-top: auto; }
+  .attempts-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-align: right;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .guess-dots {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+  }
+  .guess-dot-wrap { flex: 1; text-align: center; }
+  .guess-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 6px;
+    transition: all 0.3s;
+  }
+  .guess-dot.wrong {
+    background: var(--bg2);
+    border: 2px solid var(--bg2);
+  }
+  .guess-dot.wrong svg { display: block; }
+  .guess-dot svg { display: none; }
+  .guess-dot-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    text-transform: uppercase;
+  }
+
+  /* RESULT SCREENS */
+  .result-content { padding: 24px 20px 32px; flex: 1; display: flex; flex-direction: column; }
+  .result-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .result-heading.correct { color: var(--brown); }
+  .result-heading.wrong { font-size: 36px; font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--text); }
+  .result-subhead {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .result-divider { height: 3px; width: 48px; background: var(--border); margin-bottom: 20px; }
+
+  .reveal-card {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+    background: #C8C5BC;
+    margin-bottom: 16px;
+  }
+  .reveal-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .reveal-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    padding: 40px 18px 18px;
+  }
+  .reveal-tag {
+    display: inline-block;
+    background: var(--brown);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .reveal-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .reveal-location {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .reveal-grade-wrap {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    text-align: right;
+  }
+  .reveal-grade-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .reveal-grade {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: white;
+    line-height: 1;
+  }
+
+  .result-stats {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .result-stat-card {
+    flex: 1;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 3px solid var(--border);
+  }
+  .result-stat-card.streak-card { border-left-color: var(--green); }
+  .result-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .result-stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--text);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .result-stat-value.red { color: var(--red); }
+  .result-stat-unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+  .result-time-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .result-time-small {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: var(--text-muted);
+  }
+
+  .result-tagline {
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    margin-top: auto;
+    padding-top: 16px;
+    line-height: 1.5;
+  }
+  .go-home-btn {
+    width: 100%;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .go-home-btn:hover { background: var(--green-dark); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: var(--text);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 430px) {
+    .home-title { font-size: 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- HOME SCREEN (not played) -->
+  <div class="screen active" id="screen-home">
+    <div class="home-content">
+      <div class="home-eyebrow">Daily Boulder Problem</div>
+      <div class="home-title">Climb-a-Day</div>
+      <button class="play-btn" id="play-btn">PLAY TODAY'S CHALLENGE</button>
+
+      <div class="how-to-play">
+        <div class="how-title">How to Play</div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6M3 15h6"/>
+            </svg>
+          </div>
+          <div class="how-text">You get 4 attempts to guess the boulder name.</div>
+        </div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+            </svg>
+          </div>
+          <div class="how-text">The photo starts zoomed in and reveals more with each incorrect guess.</div>
+        </div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+          </div>
+          <div class="how-text">One new boulder every day. Build your streak by playing daily!</div>
+        </div>
+      </div>
+
+      <div class="stats-divider"></div>
+      <div class="stats-card">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-num" id="stat-sends">0</div>
+            <div class="stat-label">SENDS</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat-punts">0</div>
+            <div class="stat-label">PUNTS</div>
+          </div>
+        </div>
+        <div class="dist-title">Attempt Distribution</div>
+        <div class="dist-row">
+          <div class="dist-label">Flash</div>
+          <div class="dist-bar-wrap">
+            <div class="dist-bar" id="dist-1" style="width:0%"><span class="dist-count" id="dist-1-num">0</span></div>
+          </div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-label">2nd Go</div>
+          <div class="dist-bar-wrap">
+            <div class="dist-bar" id="dist-2" style="width:0%"><span class="dist-count" id="dist-2-num">0</span></div>
+          </div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-label">3rd Go</div>
+          <div class="dist-bar-wrap">
+            <div class="dist-bar" id="dist-3" style="width:0%"><span class="dist-count" id="dist-3-num">0</span></div>
+          </div>
+        </div>
+        <div class="dist-row">
+          <div class="dist-label">LGBG</div>
+          <div class="dist-bar-wrap">
+            <div class="dist-bar" id="dist-4" style="width:0%"><span class="dist-count" id="dist-4-num">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="screen" id="screen-game">
+    <div class="header"><div class="header-title">CLIMB-A-DAY</div></div>
+    <div class="game-content">
+      <div class="game-eyebrow">Daily Boulder Problem</div>
+      <div class="game-attempt-label" id="attempt-label">FLASH ATTEMPT</div>
+      <div class="photo-container">
+        <img class="photo-img" id="game-photo" src="" alt="Boulder problem">
+        <div class="zoom-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v3h3"/>
+          </svg>
+          <span id="zoom-label">ZOOM LEVEL 4X</span>
+        </div>
+      </div>
+      <div class="hint-text" id="hint-text" style="display:none"></div>
+      <input class="guess-input" id="guess-input" type="text" placeholder="Enter Problem Name" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="submit-btn" id="submit-btn">SUBMIT GUESS</button>
+      <div class="attempts-section">
+        <div class="attempts-count" id="attempts-count" style="display:none">1 / 4 ATTEMPTS</div>
+        <div class="guess-dots">
+          <div class="guess-dot-wrap">
+            <div class="guess-dot" id="dot-1">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="guess-dot-label">Guess 1</div>
+          </div>
+          <div class="guess-dot-wrap">
+            <div class="guess-dot" id="dot-2">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="guess-dot-label">Guess 2</div>
+          </div>
+          <div class="guess-dot-wrap">
+            <div class="guess-dot" id="dot-3">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="guess-dot-label">Guess 3</div>
+          </div>
+          <div class="guess-dot-wrap">
+            <div class="guess-dot" id="dot-4">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="guess-dot-label">Guess 4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="screen" id="screen-success">
+    <div class="header"><div class="header-title">CLIMB-A-DAY</div></div>
+    <div class="result-content">
+      <div class="result-heading correct">CORRECT!</div>
+      <div class="result-subhead" id="success-subhead">PROBLEM IDENTIFIED IN 1 ATTEMPT</div>
+      <div class="reveal-card">
+        <img class="reveal-card-img" id="success-photo" src="" alt="Boulder problem">
+        <div class="reveal-overlay">
+          <div class="reveal-name" id="success-name"></div>
+          <div class="reveal-location">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="success-location"></span>
+          </div>
+          <div class="reveal-grade-wrap">
+            <div class="reveal-grade-label">Grade</div>
+            <div class="reveal-grade" id="success-grade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="result-stat-card streak-card">
+          <div class="result-stat-label">Streak</div>
+          <div class="result-stat-value"><span id="success-streak">0</span><span class="result-stat-unit">Days</span></div>
+        </div>
+        <div class="result-stat-card">
+          <div class="result-stat-label">Next Up</div>
+          <div class="result-stat-value"><span class="result-time-big" id="next-up-h">14</span><span class="result-time-small" id="next-up-m">h 22m</span></div>
+        </div>
+      </div>
+      <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
+      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+    </div>
+  </div>
+
+  <!-- FAILURE SCREEN -->
+  <div class="screen" id="screen-failure">
+    <div class="header"><div class="header-title">CLIMB-A-DAY</div></div>
+    <div class="result-content">
+      <div class="result-heading wrong">Better luck next climb!</div>
+      <div class="result-divider"></div>
+      <div class="reveal-card">
+        <img class="reveal-card-img" id="failure-photo" src="" alt="Boulder problem">
+        <div class="reveal-overlay">
+          <div class="reveal-tag">The Big Reveal</div>
+          <div class="reveal-name" id="failure-name"></div>
+          <div class="reveal-location">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="failure-location"></span>
+          </div>
+          <div class="reveal-grade-wrap">
+            <div class="reveal-grade-label">Grade</div>
+            <div class="reveal-grade" id="failure-grade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="result-stat-card streak-card">
+          <div class="result-stat-label">Streak</div>
+          <div class="result-stat-value red"><span id="failure-streak">0</span><span class="result-stat-unit" style="color:var(--text-muted)">Days</span></div>
+        </div>
+        <div class="result-stat-card">
+          <div class="result-stat-label">Next Up</div>
+          <div class="result-stat-value"><span class="result-time-big" id="next-up-h2">14</span><span class="result-time-small" id="next-up-m2">h 22m</span></div>
+        </div>
+      </div>
+      <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
+      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── PUZZLE DATA ───────────────────────────────────────────────────────────────
+// To add new puzzles: add entries to this array.
+// Each puzzle is tied to a date (YYYY-MM-DD). The puzzle for today's date will be shown.
+// If no puzzle exists for today, puzzle index 0 is used as fallback.
+// 
+// Fields:
+//   date     - "YYYY-MM-DD" string (today's puzzle)
+//   name     - The correct boulder problem name (case-insensitive match)
+//   grade    - e.g. "V7"
+//   location - e.g. "Bishop, CA"
+//   photo    - URL to the boulder photo (replace with your own hosted images)
+//   hint3    - Hint shown on 3rd guess (grade hint, e.g. "V{7} boulder")
+//   hint4    - Hint shown on 4th guess (location hint)
+//
+// PHOTO NOTES: Replace the placeholder photo URLs below with your actual boulder photos.
+// You can host photos on Google Drive, Dropbox, Imgur, or any image host.
+// Use a direct image link (ending in .jpg, .png, etc.)
+
+const PUZZLES = [
+  {
+    date: new Date().toISOString().slice(0, 10), // today — change to a specific date like "2026-03-23"
+    name: "The Mandala",
+    grade: "V12",
+    location: "Bishop, CA",
+    photo: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
+    hint3: "V{12} boulder",
+    hint4: "Located in Bishop, CA"
+  },
+  {
+    date: "2026-03-24",
+    name: "Midnight Lightning",
+    grade: "V8",
+    location: "Camp 4, Yosemite",
+    photo: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80",
+    hint3: "V{8} boulder",
+    hint4: "Located in Yosemite, CA"
+  }
+];
+
+// ─── ZOOM LEVELS ───────────────────────────────────────────────────────────────
+const ZOOM_LEVELS = [4, 3, 2, 1]; // guess 1 = 4x, guess 2 = 3x, guess 3 = 2x, guess 4 = 1x
+const ATTEMPT_LABELS = ["FLASH ATTEMPT", "2ND GO", "3RD GO", "LAST GO BEST GO"];
+const DIST_LABELS = ["Flash", "2nd Go", "3rd Go", "LGBG"];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────────
+let state = {
+  currentGuess: 0,   // 0-indexed
+  puzzle: null,
+  finished: false
+};
+
+// ─── LOCALSTORAGE ──────────────────────────────────────────────────────────────
+function loadStats() {
+  try {
+    return JSON.parse(localStorage.getItem('cadStats')) || {
+      sends: 0,
+      punts: 0,
+      streak: 0,
+      lastPlayedDate: null,
+      lastResult: null, // 'win' or 'punt'
+      distribution: [0, 0, 0, 0]
+    };
+  } catch { return { sends: 0, punts: 0, streak: 0, lastPlayedDate: null, lastResult: null, distribution: [0, 0, 0, 0] }; }
+}
+
+function saveStats(stats) {
+  localStorage.setItem('cadStats', JSON.stringify(stats));
+}
+
+function loadGameState() {
+  try {
+    return JSON.parse(localStorage.getItem('cadGameState')) || null;
+  } catch { return null; }
+}
+
+function saveGameState(gs) {
+  localStorage.setItem('cadGameState', JSON.stringify(gs));
+}
+
+// ─── PUZZLE SELECTION ──────────────────────────────────────────────────────────
+function getTodayString() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function getTodayPuzzle() {
+  const today = getTodayString();
+  return PUZZLES.find(p => p.date === today) || PUZZLES[0];
+}
+
+// ─── TIME UNTIL MIDNIGHT ───────────────────────────────────────────────────────
+function getTimeUntilMidnight() {
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  return { h, m };
+}
+
+// ─── STREAK LOGIC ──────────────────────────────────────────────────────────────
+function updateStreak(stats, won) {
+  const today = getTodayString();
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+
+  if (won) {
+    if (stats.lastPlayedDate === yesterday) {
+      stats.streak += 1;
+    } else if (stats.lastPlayedDate !== today) {
+      stats.streak = 1;
+    }
+    stats.sends += 1;
+  } else {
+    stats.streak = 0;
+    stats.punts += 1;
+  }
+  stats.lastPlayedDate = today;
+  stats.lastResult = won ? 'win' : 'punt';
+  return stats;
+}
+
+// ─── SCREEN SWITCHING ──────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── HOME SCREEN ───────────────────────────────────────────────────────────────
+function renderHome() {
+  const stats = loadStats();
+  document.getElementById('stat-sends').textContent = stats.sends;
+  document.getElementById('stat-punts').textContent = stats.punts;
+
+  const dist = stats.distribution || [0, 0, 0, 0];
+  const max = Math.max(...dist, 1);
+  ['1','2','3','4'].forEach((n, i) => {
+    const val = dist[i] || 0;
+    const pct = Math.max((val / max) * 85 + 10, val > 0 ? 14 : 8);
+    const bar = document.getElementById('dist-' + n);
+    const num = document.getElementById('dist-' + n + '-num');
+    bar.style.width = pct + '%';
+    num.textContent = val;
+    // highlight the most common
+    bar.classList.toggle('highlight', val === max && max > 0 && val > 0);
+  });
+
+  // Check if already played today
+  const today = getTodayString();
+  if (stats.lastPlayedDate === today) {
+    document.getElementById('play-btn').textContent = "VIEW TODAY'S RESULT";
+    document.getElementById('play-btn').onclick = viewTodayResult;
+  } else {
+    document.getElementById('play-btn').textContent = "PLAY TODAY'S CHALLENGE";
+    document.getElementById('play-btn').onclick = startGame;
+  }
+}
+
+function viewTodayResult() {
+  const stats = loadStats();
+  state.puzzle = getTodayPuzzle();
+  if (stats.lastResult === 'win') {
+    showSuccessScreen(stats);
+  } else {
+    showFailureScreen(stats);
+  }
+}
+
+// ─── GAME SCREEN ───────────────────────────────────────────────────────────────
+function startGame() {
+  state.puzzle = getTodayPuzzle();
+  state.currentGuess = 0;
+  state.finished = false;
+
+  // Restore mid-game state if same day
+  const saved = loadGameState();
+  const today = getTodayString();
+  if (saved && saved.date === today && !saved.finished) {
+    state.currentGuess = saved.currentGuess;
+  }
+
+  renderGameScreen();
+  showScreen('screen-game');
+}
+
+function renderGameScreen() {
+  const g = state.currentGuess;
+  const zoom = ZOOM_LEVELS[g];
+
+  document.getElementById('attempt-label').textContent = ATTEMPT_LABELS[g];
+  document.getElementById('zoom-label').textContent = 'ZOOM LEVEL ' + zoom + 'X';
+  document.getElementById('game-photo').src = state.puzzle.photo;
+  document.getElementById('game-photo').style.transform = 'scale(' + zoom + ')';
+
+  // Hints
+  const hintEl = document.getElementById('hint-text');
+  if (g === 2) { hintEl.textContent = 'Hint: ' + state.puzzle.hint3; hintEl.style.display = 'block'; }
+  else if (g === 3) { hintEl.textContent = 'Hint: ' + state.puzzle.hint4; hintEl.style.display = 'block'; }
+  else { hintEl.style.display = 'none'; }
+
+  // Dots
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.classList.remove('wrong');
+    if (i <= g) dot.classList.add('wrong');
+  }
+
+  // Attempts counter
+  const attEl = document.getElementById('attempts-count');
+  if (g > 0) {
+    attEl.textContent = g + ' / 4 ATTEMPTS';
+    attEl.style.display = 'block';
+  } else {
+    attEl.style.display = 'none';
+  }
+
+  document.getElementById('guess-input').value = '';
+  document.getElementById('guess-input').focus();
+}
+
+function submitGuess() {
+  const input = document.getElementById('guess-input').value.trim();
+  if (!input) return;
+
+  const correct = input.toLowerCase() === state.puzzle.name.toLowerCase();
+  const g = state.currentGuess;
+
+  if (correct) {
+    let stats = loadStats();
+    stats = updateStreak(stats, true);
+    stats.distribution[g] = (stats.distribution[g] || 0) + 1;
+    saveStats(stats);
+    saveGameState({ date: getTodayString(), finished: true, currentGuess: g });
+    showSuccessScreen(stats, g + 1);
+  } else {
+    if (g === 3) {
+      // Used all 4 guesses
+      let stats = loadStats();
+      stats = updateStreak(stats, false);
+      saveStats(stats);
+      saveGameState({ date: getTodayString(), finished: true, currentGuess: 4 });
+      showFailureScreen(stats);
+    } else {
+      state.currentGuess += 1;
+      saveGameState({ date: getTodayString(), finished: false, currentGuess: state.currentGuess });
+      showToast('Incorrect — keep climbing!');
+      renderGameScreen();
+    }
+  }
+}
+
+// ─── SUCCESS SCREEN ────────────────────────────────────────────────────────────
+function showSuccessScreen(stats, guessNum) {
+  const p = state.puzzle;
+  const gn = guessNum || 1;
+  const labels = ['1 ATTEMPT', '2 ATTEMPTS', '3 ATTEMPTS', '4 ATTEMPTS'];
+  document.getElementById('success-subhead').textContent = 'PROBLEM IDENTIFIED IN ' + labels[gn - 1];
+  document.getElementById('success-photo').src = p.photo;
+  document.getElementById('success-name').textContent = p.name;
+  document.getElementById('success-location').textContent = p.location;
+  document.getElementById('success-grade').textContent = p.grade;
+  document.getElementById('success-streak').textContent = stats.streak;
+  const t = getTimeUntilMidnight();
+  document.getElementById('next-up-h').textContent = t.h + 'h';
+  document.getElementById('next-up-m').textContent = ' ' + t.m + 'm';
+  showScreen('screen-success');
+}
+
+// ─── FAILURE SCREEN ────────────────────────────────────────────────────────────
+function showFailureScreen(stats) {
+  const p = state.puzzle;
+  document.getElementById('failure-photo').src = p.photo;
+  document.getElementById('failure-name').textContent = p.name;
+  document.getElementById('failure-location').textContent = p.location;
+  document.getElementById('failure-grade').textContent = p.grade;
+  document.getElementById('failure-streak').textContent = stats.streak;
+  const t = getTimeUntilMidnight();
+  document.getElementById('next-up-h2').textContent = t.h + 'h';
+  document.getElementById('next-up-m2').textContent = ' ' + t.m + 'm';
+  showScreen('screen-failure');
+}
+
+// ─── GO HOME ───────────────────────────────────────────────────────────────────
+function goHome() {
+  renderHome();
+  showScreen('screen-home');
+}
+
+// ─── EVENT LISTENERS ───────────────────────────────────────────────────────────
+document.getElementById('submit-btn').addEventListener('click', submitGuess);
+document.getElementById('guess-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitGuess();
+});
+document.getElementById('play-btn').addEventListener('click', startGame);
+
+// ─── INIT ──────────────────────────────────────────────────────────────────────
+renderHome();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
+</body>
+</html>
