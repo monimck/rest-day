@@ -1,4 +1,4 @@
-const CACHE = 'rest-day-v1';
+const CACHE = 'rest-day-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -21,6 +21,14 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url.pathname);
+
+  if (isImage) {
+    e.respondWith(fetch(e.request));
+    return;
+  }
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
