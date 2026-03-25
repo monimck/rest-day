@@ -1,10 +1,9 @@
-const CACHE = 'climb-a-day-v1';
+const CACHE = 'rest-day-v1';
 const ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/images/icon-192.png',
-  '/images/icon-512.png'
+  '/images/Icon.png'
 ];
 
 self.addEventListener('install', e => {

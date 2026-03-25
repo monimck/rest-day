@@ -1,6 +1,6 @@
 {
-  "name": "Climb-a-Day",
-  "short_name": "Climb-a-Day",
+  "name": "Rest Day",
+  "short_name": "Rest Day",
   "description": "Daily boulder problem guessing game",
   "start_url": "/",
   "display": "standalone",
