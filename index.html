@@ -228,6 +228,8 @@
     background: var(--photo-bg);
     position: relative;
     margin-bottom: 16px;
+    isolation: isolate;
+    clip-path: inset(0 round 16px);
   }
   .photo-img {
     width: 100%;
@@ -235,6 +237,10 @@
     object-fit: cover;
     transform-origin: center center;
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   .zoom-badge {
     position: absolute;
@@ -755,7 +761,7 @@ const PUZZLES = [
     location: "Leavenworth, WA",
     photo: "images/hell_or_high_water.jpg"
   },
-   {
+  {
     date: "2026-03-26",
     name: "Drawn and Quartered",
     aliases: ["Drawn", "Drawn n Quartered", "Drawn & Quartered"],
