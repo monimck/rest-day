@@ -4,15 +4,15 @@ A daily boulder problem guessing game. Guess the name of a boulder problem from 
 
 ## Adding Puzzles
 
-Open `index.html` and find the `PUZZLES` array near the top. Add a new entry for each day:
+Open `puzzles.js` — this is the only file you need to edit when adding new problems. Add a new entry to the `PUZZLES` array for each day:
 
 ```js
 {
-  date: "2026-03-25",       // YYYY-MM-DD — the date this puzzle appears
-  name: "The Mandala",      // Exact name players must guess (case-insensitive)
-  aliases: ["Mandala"],     // Optional alternate accepted answers
-  grade: "V12",             // Always in V# format
-  location: "Bishop, CA",   // Where the boulder is
+  date: "2026-03-25",          // YYYY-MM-DD — the date this puzzle appears
+  name: "The Mandala",         // Exact name players must guess (case-insensitive)
+  aliases: ["Mandala"],        // Optional alternate accepted answers
+  grade: "V12",                // Always in V# format
+  location: "Bishop, CA",      // Where the boulder is
   photo: "images/mandala.jpg"  // Path to your photo in the images/ folder
 }
 ```
@@ -28,12 +28,14 @@ Drop your boulder photos into the `images/` folder. Recommended:
 - At least 800x800px
 - JPG format for smaller file sizes
 - Name them clearly: `mandala.jpg`, `midnight-lightning.jpg`, etc.
+- Avoid spaces in filenames — use underscores instead
 
 ## Project Structure
 
 ```
 rest-day/
-├── index.html       ← The entire app
+├── index.html       ← The app (HTML + CSS + game logic)
+├── puzzles.js       ← All puzzle data — edit this to add new problems
 ├── manifest.json    ← PWA manifest (app name, icon, colors)
 ├── sw.js            ← Service worker (offline support)
 ├── README.md        ← This file

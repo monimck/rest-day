@@ -222,7 +222,6 @@
   }
   .photo-container {
     width: 100%;
-    aspect-ratio: 1;
     border-radius: 16px;
     overflow: hidden;
     background: var(--photo-bg);
@@ -233,14 +232,10 @@
   }
   .photo-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
     transform-origin: center center;
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   .zoom-badge {
     position: absolute;
@@ -366,14 +361,13 @@
     border-radius: 16px;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 1;
     background: var(--photo-bg);
     margin-bottom: 16px;
   }
   .reveal-card-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    display: block;
   }
   .reveal-overlay {
     position: absolute;
@@ -620,7 +614,7 @@
         <img class="photo-img" id="game-photo" src="" alt="Boulder problem">
         <div class="zoom-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v3h3"/>
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
           </svg>
           <span id="zoom-label">ZOOM LEVEL 4X</span>
         </div>
@@ -733,75 +727,9 @@
 
 </div>
 
+<script src="/puzzles.js"></script>
 <script>
-// ─── PUZZLE DATA ───────────────────────────────────────────────────────────────
-// To add new puzzles: add entries to this array.
-// Each puzzle is tied to a date (YYYY-MM-DD). The puzzle for today's date will be shown.
-// If no puzzle exists for today, puzzle index 0 is used as fallback.
-// 
-// Fields:
-//   date     - "YYYY-MM-DD" string (today's puzzle)
-//   name     - The correct boulder problem name (case-insensitive match)
-//   grade    - e.g. "V7"
-//   location - e.g. "Bishop, CA"
-//   photo    - URL to the boulder photo (replace with your own hosted images)
-//   aliases  - Array of additional accepted answers, e.g. ["Mandala", "The Mandala"]
-//   (hints are auto-generated from grade and location — no need to enter separately)
-//
-// PHOTO NOTES: Replace the placeholder photo URLs below with your actual boulder photos.
-// You can host photos on Google Drive, Dropbox, Imgur, or any image host.
-// Use a direct image link (ending in .jpg, .png, etc.)
 
-const PUZZLES = [
-  {
-    date: "2026-03-25",
-    name: "Hell or High Water",
-    aliases: ["Hell or Highwater"],
-    grade: "V11",
-    location: "Leavenworth, WA",
-    photo: "images/hell_or_high_water.jpg"
-  },
-  {
-    date: "2026-03-30",
-    name: "Drawn and Quartered",
-    aliases: ["Drawn", "Drawn n Quartered", "Drawn & Quartered"],
-    grade: "V13",
-    location: "Leavenworth, WA",
-    photo: "images/drawn_and_quartered.jpg"
-  },
-  {
-    date: "2026-03-27",
-    name: "Mountain Man",
-    aliases: [],
-    grade: "V9",
-    location: "Leavenworth, WA",
-    photo: "images/mountain_man.jpg"
-  },
-  {
-    date: "2026-03-28",
-    name: "Pamplemousse",
-    aliases: ["Pamplemouse"],
-    grade: "V10",
-    location: "Brione, Switzerland",
-    photo: "images/pamplemousse.png"
-  },
-  {
-    date: "2026-03-26",
-    name: "Pimpsqueak",
-    aliases: [],
-    grade: "V8",
-    location: "Leavenworth, WA",
-    photo: "images/pimpsqueak.jpg"
-  },
-  {
-    date: "2026-03-29",
-    name: "The Sleeping Lady",
-    aliases: ["Sleeping Lady"],
-    grade: "V2",
-    location: "Leavenworth, WA",
-    photo: "images/sleeping_lady.jpg"
-  }
-];
 
 // ─── ZOOM LEVELS ───────────────────────────────────────────────────────────────
 const ZOOM_LEVELS = [4, 3, 2, 1]; // guess 1 = 4x, guess 2 = 3x, guess 3 = 2x, guess 4 = 1x
@@ -843,7 +771,11 @@ function saveGameState(gs) {
 
 // ─── PUZZLE SELECTION ──────────────────────────────────────────────────────────
 function getTodayString() {
-  return new Date().toISOString().slice(0, 10);
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 function getTodayPuzzle() {
@@ -865,7 +797,8 @@ function getTimeUntilMidnight() {
 // ─── STREAK LOGIC ──────────────────────────────────────────────────────────────
 function updateStreak(stats, won) {
   const today = getTodayString();
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yd = new Date(Date.now() - 86400000);
+  const yesterday = `${yd.getFullYear()}-${String(yd.getMonth() + 1).padStart(2, '0')}-${String(yd.getDate()).padStart(2, '0')}`;
 
   if (won) {
     if (stats.lastPlayedDate === yesterday) {
@@ -987,7 +920,6 @@ function renderGameScreen() {
   }
 
   document.getElementById('guess-input').value = '';
-  document.getElementById('guess-input').focus();
 }
 
 function submitGuess() {
