@@ -636,7 +636,7 @@
           </div>
         </div>
       </div>
-      <a class="submit-boulder-btn" onclick="window.location='mail'+'to:YOUR_EMAIL_HERE?subject=Rest%20Day%20Boulder%20Submission&body=Problem%20Name%3A%20%0D%0AGrade%3A%20%0D%0ALocation%3A%20%0D%0ADon%27t%20forget%20to%20attach%20your%20photo%20%3A)'" href="#">SUBMIT A BOULDER</a>
+      <a class="submit-boulder-btn" id="submit-boulder-btn" href="#">SUBMIT A BOULDER</a>
     </div>
   </div>
 
@@ -763,8 +763,76 @@
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/puzzles.js"></script>
 <script>
+// ─── PUZZLE DATA ───────────────────────────────────────────────────────────────
+// To add new puzzles: add entries to this array.
+// Each puzzle is tied to a date (YYYY-MM-DD). The puzzle for today's date will be shown.
+// If no puzzle exists for today, puzzle index 0 is used as fallback.
+// 
+// Fields:
+//   date     - "YYYY-MM-DD" string (today's puzzle)
+//   name     - The correct boulder problem name (case-insensitive match)
+//   grade    - e.g. "V7"
+//   location - e.g. "Bishop, CA"
+//   photo    - URL to the boulder photo (replace with your own hosted images)
+//   aliases  - Array of additional accepted answers, e.g. ["Mandala", "The Mandala"]
+//   (hints are auto-generated from grade and location — no need to enter separately)
+//
+// PHOTO NOTES: Replace the placeholder photo URLs below with your actual boulder photos.
+// You can host photos on Google Drive, Dropbox, Imgur, or any image host.
+// Use a direct image link (ending in .jpg, .png, etc.)
+
+const PUZZLES = [
+  {
+    date: "2026-03-24",
+    name: "Hell or High Water",
+    aliases: ["Hell or Highwater"],
+    grade: "V11",
+    location: "Leavenworth, WA",
+    photo: "images/hell_or_high_water.jpg"
+  },
+  {
+    date: "2026-03-26",
+    name: "Drawn and Quartered",
+    aliases: ["Drawn", "Drawn n Quartered", "Drawn & Quartered"],
+    grade: "V13",
+    location: "Leavenworth, WA",
+    photo: "images/drawn_and_quartered.jpg"
+  },
+  {
+    date: "2026-03-27",
+    name: "Mountain Man",
+    aliases: [],
+    grade: "V9",
+    location: "Leavenworth, WA",
+    photo: "images/mountain_man.jpg"
+  },
+  {
+    date: "2026-03-28",
+    name: "Pamplemousse",
+    aliases: ["Pamplemouse"],
+    grade: "V10",
+    location: "Brione, Switzerland",
+    photo: "images/pamplemousse.png"
+  },
+  {
+    date: "2026-03-29",
+    name: "Pimpsqueak",
+    aliases: [],
+    grade: "V8",
+    location: "Leavenworth, WA",
+    photo: "images/pimpsqueak.jpg"
+  },
+  {
+    date: "2026-03-30",
+    name: "The Sleeping Lady",
+    aliases: ["Sleeping Lady"],
+    grade: "V2",
+    location: "Leavenworth, WA",
+    photo: "images/sleeping_lady.jpg"
+  }
+];
+
 
 
 // ─── ZOOM LEVELS ───────────────────────────────────────────────────────────────
@@ -1042,6 +1110,16 @@ function goHome() {
 
 // ─── EVENT LISTENERS ───────────────────────────────────────────────────────────
 document.getElementById('submit-btn').addEventListener('click', submitGuess);
+document.getElementById('submit-boulder-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const em = 'YOUR_EMAIL_HERE';
+  const sub = 'Rest Day Boulder Submission';
+  const bod = 'Problem Name: 
+Grade: 
+Location: 
+Don't forget to attach your photo :)';
+  window.location = 'mailto:' + em + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(bod);
+});
 document.getElementById('guess-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitGuess();
 });

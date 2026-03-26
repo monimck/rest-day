@@ -1,8 +1,7 @@
-const CACHE = 'rest-day-v3';
+const CACHE = 'rest-day-v4';
 const ASSETS = [
   '/',
   '/index.html',
-  '/puzzles.js',
   '/manifest.json',
   '/images/Icon.png'
 ];

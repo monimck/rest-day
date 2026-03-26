@@ -4,7 +4,7 @@ A daily boulder problem guessing game. Guess the name of a boulder problem from 
 
 ## Adding Puzzles
 
-Open `puzzles.js` — this is the only file you need to edit when adding new problems. Add a new entry to the `PUZZLES` array for each day:
+Open `index.html` and find the `PUZZLES` array near the top of the `<script>` block. Add a new entry for each day:
 
 ```js
 {
@@ -34,8 +34,7 @@ Drop your boulder photos into the `images/` folder. Recommended:
 
 ```
 rest-day/
-├── index.html       ← The app (HTML + CSS + game logic)
-├── puzzles.js       ← All puzzle data — edit this to add new problems
+├── index.html       ← The app (HTML + CSS + game logic + puzzles)
 ├── manifest.json    ← PWA manifest (app name, icon, colors)
 ├── sw.js            ← Service worker (offline support)
 ├── README.md        ← This file
