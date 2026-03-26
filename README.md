@@ -1,4 +1,4 @@
-# Rest Day
+# On Sight
 
 A daily boulder problem guessing game. Guess the name of a boulder problem from a zoomed-in photo — the photo reveals more with each wrong guess.
 
@@ -33,7 +33,7 @@ Drop your boulder photos into the `images/` folder. Recommended:
 ## Project Structure
 
 ```
-rest-day/
+on-sight/
 ├── index.html       ← The app (HTML + CSS + game logic)
 ├── puzzles.js       ← All puzzle data — edit this to add new problems
 ├── manifest.json    ← PWA manifest (app name, icon, colors)

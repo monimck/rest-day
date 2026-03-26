@@ -1,4 +1,4 @@
-const CACHE = 'rest-day-v5';
+const CACHE = 'on-sight-v1';
 const ASSETS = [
   '/',
   '/index.html',

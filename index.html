@@ -5,11 +5,11 @@
 <meta name="theme-color" content="#4A5E4A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Rest Day">
+<meta name="apple-mobile-web-app-title" content="On Sight">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/images/Icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rest Day</title>
+<title>On Sight</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -567,7 +567,7 @@
   <div class="screen active" id="screen-home">
     <div class="home-content">
       <div class="home-eyebrow">Daily Boulder Problem</div>
-      <div class="home-title">Rest Day</div>
+      <div class="home-title">On Sight</div>
       <button class="play-btn" id="play-btn">PLAY TODAY'S CHALLENGE</button>
 
       <div class="how-to-play">
@@ -612,7 +612,7 @@
         </div>
         <div class="dist-title">Attempt Distribution</div>
         <div class="dist-row">
-          <div class="dist-label">Flash</div>
+          <div class="dist-label">Onsight</div>
           <div class="dist-bar-wrap">
             <div class="dist-bar" id="dist-1" style="width:0%"><span class="dist-count" id="dist-1-num">0</span></div>
           </div>
@@ -642,7 +642,7 @@
 
   <!-- GAME SCREEN -->
   <div class="screen" id="screen-game">
-    <div class="header"><div class="header-title">REST DAY</div></div>
+    <div class="header"><div class="header-title">ON SIGHT</div></div>
     <div class="game-content">
       <div class="game-eyebrow">Daily Boulder Problem</div>
       <div class="game-attempt-label" id="attempt-label">FLASH ATTEMPT</div>
@@ -692,7 +692,7 @@
 
   <!-- SUCCESS SCREEN -->
   <div class="screen" id="screen-success">
-    <div class="header"><div class="header-title">REST DAY</div></div>
+    <div class="header"><div class="header-title">ON SIGHT</div></div>
     <div class="result-content">
       <div class="result-heading correct">CORRECT!</div>
       <div class="result-subhead" id="success-subhead">PROBLEM IDENTIFIED IN 1 ATTEMPT</div>
@@ -727,7 +727,7 @@
 
   <!-- FAILURE SCREEN -->
   <div class="screen" id="screen-failure">
-    <div class="header"><div class="header-title">REST DAY</div></div>
+    <div class="header"><div class="header-title">ON SIGHT</div></div>
     <div class="result-content">
       <div class="result-heading wrong">Better luck next climb!</div>
       <div class="result-divider"></div>
@@ -771,7 +771,7 @@
 
 // ─── ZOOM LEVELS ───────────────────────────────────────────────────────────────
 const ZOOM_LEVELS = [4, 3, 2, 1]; // guess 1 = 4x, guess 2 = 3x, guess 3 = 2x, guess 4 = 1x
-const ATTEMPT_LABELS = ["FLASH ATTEMPT", "2ND GO", "3RD GO", "LAST GO BEST GO"];
+const ATTEMPT_LABELS = ["ONSIGHT ATTEMPT", "2ND GO", "3RD GO", "LAST GO BEST GO"];
 // ─── STATE ─────────────────────────────────────────────────────────────────────
 let state = {
   currentGuess: 0,   // 0-indexed
@@ -1046,9 +1046,9 @@ function goHome() {
 document.getElementById('submit-btn').addEventListener('click', submitGuess);
 document.getElementById('submit-boulder-btn').addEventListener('click', function(e) {
   e.preventDefault();
-  const em = 'YOUR_EMAIL_HERE';
-  const sub = 'Rest Day Boulder Submission';
-  const bod = 'Problem Name: \r\nGrade: \r\nLocation: \r\nDon\'t forget to attach your photo :)';
+  const em = 'onsightbouldersubmissions@gmail.com';
+  const sub = 'On Sight Boulder Submission';
+  const bod = '1. Problem Name: \r\n2. Alternate names or spellings: \r\n3. Grade: \r\n4. Location: \r\n5. Don\'t forget to attach your photo :)';
   window.location = 'mailto:' + em + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(bod);
 });
 document.getElementById('guess-input').addEventListener('keydown', e => {
