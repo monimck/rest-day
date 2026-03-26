@@ -52,7 +52,7 @@ const PUZZLES = [
   {
     date: "2026-03-29",
     name: "Pimpsqueak",
-    aliases: [],
+    aliases: ["Pimp Squeak", "Pimpsqueek"],
     grade: "V8",
     location: "Leavenworth, WA",
     photo: "images/pimpsqueak.jpg"
