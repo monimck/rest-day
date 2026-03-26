@@ -26,7 +26,7 @@ const PUZZLES = [
     photo: "images/hell_or_high_water.jpg"
   },
   {
-    date: "2026-03-26",
+    date: "2026-03-23",
     name: "Drawn and Quartered",
     aliases: ["Drawn", "Drawn n Quartered", "Drawn & Quartered"],
     grade: "V13",
@@ -50,7 +50,7 @@ const PUZZLES = [
     photo: "images/pamplemousse.png"
   },
   {
-    date: "2026-03-29",
+    date: "2026-03-26",
     name: "Pimpsqueak",
     aliases: [],
     grade: "V8",
@@ -58,7 +58,7 @@ const PUZZLES = [
     photo: "images/pimpsqueak.jpg"
   },
   {
-    date: "2026-03-30",
+    date: "2026-03-27",
     name: "The Sleeping Lady",
     aliases: ["Sleeping Lady"],
     grade: "V2",
