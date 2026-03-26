@@ -498,6 +498,25 @@
   }
   .go-home-btn:hover { background: var(--green-dark); }
 
+  /* SUBMIT BUTTON */
+  .submit-boulder-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 24px;
+    padding: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .submit-boulder-btn:hover { border-color: var(--green); color: var(--green); }
+
   /* TOAST */
   .toast {
     position: fixed;
@@ -601,6 +620,9 @@
           </div>
         </div>
       </div>
+      <a class="submit-boulder-btn"
+         href="mailto:YOUR_EMAIL_HERE?subject=Rest%20Day%20Boulder%20Submission&body=Problem%20Name%3A%20%0D%0AGrade%3A%20%0D%0ALocation%3A%20"
+      >SUBMIT A BOULDER</a>
     </div>
   </div>
 
