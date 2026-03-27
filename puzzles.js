@@ -79,7 +79,7 @@ const PUZZLES = [
     aliases: [],
     grade: "V9",
     location: "Moe's Valley, UT",
-    photo: "images/gription.jpg"
+    photo: "images/gription_crop.jpg"
   },
   {
     date: "2026-03-30",
