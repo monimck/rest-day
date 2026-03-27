@@ -140,7 +140,7 @@ const PUZZLES = [
   {
     date: "2026-04-06",
     name: "Jabberwocky",
-    aliases: ["Jabberwock Arete", "Jabberwock"],
+    aliases: ["Jabberwock Arete", "Jabberwock", "Jabberwocky Arete", "Jaberwock", "Jaberwocky", "Jabberwocki", "Jaberwockey", "Jabberwalky"],
     grade: "V4",
     location: "Moe's Valley, UT",
     photo: "images/jabberwocky.jpg"
