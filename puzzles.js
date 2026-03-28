@@ -68,7 +68,7 @@ const PUZZLES = [
   {
     date: "2026-03-28",
     name: "Loaded With Power",
-    aliases: ["Loaded"],
+    aliases: ["Loaded", "Loaded Direct"],
     grade: "V10",
     location: "Hueco, TX",
     photo: "images/loaded_with_power.jpg"
