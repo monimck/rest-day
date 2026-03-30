@@ -22,6 +22,8 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  if (!e.request.url.startsWith('http')) return;
+
   const url = new URL(e.request.url);
   const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url.pathname);
 

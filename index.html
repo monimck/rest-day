@@ -546,10 +546,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-weight: 500;
     letter-spacing: 0.15em;
     color: var(--text-muted);
-    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
     transition: border-color 0.15s, color 0.15s;
   }
   .submit-boulder-btn:hover { border-color: var(--green); color: var(--green); }
+
+  /* SUBMIT BOULDER SCREEN */
+  .submit-screen-content { padding: 40px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+  .submit-screen-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+  .submit-screen-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+  .submit-screen-body a {
+    color: var(--brown);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .submit-screen-email {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    word-break: break-all;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
 
   /* TOAST */
   .toast {
@@ -658,7 +690,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
-      <a class="submit-boulder-btn" id="submit-boulder-btn" href="#">SUBMIT A BOULDER</a>
+      <button class="submit-boulder-btn" onclick="showSubmitScreen()">SUBMIT A BOULDER</button>
     </div>
   </div>
 
@@ -779,6 +811,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
+      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+    </div>
+  </div>
+
+  <!-- SUBMIT BOULDER SCREEN -->
+  <div class="screen" id="screen-submit">
+    <div class="header"><div class="header-title">ON SIGHT</div></div>
+    <div class="submit-screen-content">
+      <div class="submit-screen-title">Submit a Boulder</div>
+      <div class="submit-screen-body">
+        <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span style="font-family:'DM Mono',monospace;font-size:13px;">onsightbouldersubmissions@gmail.com</span> with the problem name, alternate names/spellings, grade, and location.
+        <div class="submit-screen-email">Your submissions are greatly appreciated!</div>
+      </div>
       <button class="go-home-btn" onclick="goHome()">GO HOME</button>
     </div>
   </div>
@@ -1065,15 +1110,20 @@ function goHome() {
   showScreen('screen-home');
 }
 
-// ─── EVENT LISTENERS ───────────────────────────────────────────────────────────
-document.getElementById('submit-btn').addEventListener('click', submitGuess);
-document.getElementById('submit-boulder-btn').addEventListener('click', function(e) {
-  e.preventDefault();
+// ─── SUBMIT SCREEN ─────────────────────────────────────────────────────────────
+function showSubmitScreen() {
+  showScreen('screen-submit');
+}
+
+function openMailto() {
   const em = 'onsightbouldersubmissions@gmail.com';
   const sub = 'On Sight Boulder Submission';
   const bod = '1. Problem Name: \r\n2. Alternate names or spellings: \r\n3. Grade: \r\n4. Location: \r\n5. Don\'t forget to attach your photo :)';
-  window.location = 'mailto:' + em + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(bod);
-});
+  window.location.href = 'mailto:' + em + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(bod);
+}
+
+// ─── EVENT LISTENERS ───────────────────────────────────────────────────────────
+document.getElementById('submit-btn').addEventListener('click', submitGuess);
 document.getElementById('guess-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitGuess();
 });
