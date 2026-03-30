@@ -1007,6 +1007,7 @@ function submitGuess() {
     let stats = loadStats();
     stats = updateStreak(stats, true);
     stats.distribution[g] = (stats.distribution[g] || 0) + 1;
+    stats.lastGuessNum = g + 1;
     saveStats(stats);
     saveGameState({ date: getTodayString(), finished: true, currentGuess: g });
     showSuccessScreen(stats, g + 1);
@@ -1030,7 +1031,7 @@ function submitGuess() {
 // ─── SUCCESS SCREEN ────────────────────────────────────────────────────────────
 function showSuccessScreen(stats, guessNum) {
   const p = state.puzzle;
-  const gn = guessNum || 1;
+  const gn = guessNum || stats.lastGuessNum || 1;
   const labels = ['1 ATTEMPT', '2 ATTEMPTS', '3 ATTEMPTS', '4 ATTEMPTS'];
   document.getElementById('success-subhead').textContent = 'PROBLEM IDENTIFIED IN ' + labels[gn - 1];
   document.getElementById('success-photo').src = p.photo;
