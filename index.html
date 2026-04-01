@@ -210,6 +210,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition: width 0.6s ease;
     min-width: 44px;
   }
+  .dist-bar.active { background: #A8B8A8; }
   .dist-bar.highlight { background: var(--green); }
   .dist-bar.highlight .dist-count { color: white; }
   .dist-count {
@@ -840,28 +841,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="result-stat-card">
           <div class="result-stat-label">Next Up</div>
-          <div class="result-stat-value"><span class="result-time-big" id="next-up-h">14</span><span class="result-time-small" id="next-up-m">h 22m</span></div>
-        </div>
-      </div>
-      <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
-      <button class="share-btn" onclick="shareResult()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-        </svg>
-        SHARE RESULT
-      </button>
-      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
-    </div>
-  </div>
-
-  <!-- SUBMIT BOULDER SCREEN -->
+          <div class="result-stat-value"><span class="result-time-big" id="failure-next-up-h">14</span><span class="result-time-small" id="failure-next-up-m">h 22m</span></div>
   <div class="screen" id="screen-submit">
     <div class="header"><div class="header-title">ON SIGHT</div></div>
     <div class="submit-screen-content">
       <div class="submit-screen-title">Submit a Boulder</div>
       <div class="submit-screen-body">
-        <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span style="font-family:'DM Mono',monospace;font-size:13px;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="076869746e606f736568726b6362757472656a6e74746e68697447606a666e6b2964686a">[email&#160;protected]</a></span> with the problem name, alternate names/spellings, grade, and location.
+        <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span style="font-family:'DM Mono',monospace;font-size:13px;">onsightbouldersubmissions@gmail.com</span> with the problem name, alternate names/spellings, grade, and location.
         <div class="submit-screen-email">Your submissions are greatly appreciated!</div>
       </div>
       <button class="go-home-btn" onclick="goHome()">GO HOME</button>
@@ -870,7 +856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/puzzles.js"></script>
+<script src="/puzzles.js"></script>
 <script>
 
 
@@ -986,13 +972,14 @@ function renderHome() {
   const max = Math.max(...dist, 1);
   ['1','2','3','4'].forEach((n, i) => {
     const val = dist[i] || 0;
-    const pct = Math.max((val / max) * 85 + 10, val > 0 ? 14 : 8);
+    const pct = val > 0 ? Math.max((val / max) * 100, 8) : 4;
     const bar = document.getElementById('dist-' + n);
     const num = document.getElementById('dist-' + n + '-num');
     bar.style.width = pct + '%';
     num.textContent = val;
     // highlight the most common
     bar.classList.toggle('highlight', val === max && max > 0 && val > 0);
+    bar.classList.toggle('active', val > 0 && !(val === max && max > 0));
   });
 
   // Check if already played today
@@ -1141,8 +1128,8 @@ function showFailureScreen(stats) {
   document.getElementById('failure-streak').textContent = stats.streak;
   document.getElementById('failure-streak-unit').textContent = stats.streak === 1 ? 'Day' : 'Days';
   const t = getTimeUntilMidnight();
-  document.getElementById('next-up-h').textContent = t.h + 'h';
-  document.getElementById('next-up-m').textContent = ' ' + t.m + 'm';
+  document.getElementById('failure-next-up-h').textContent = t.h + 'h';
+  document.getElementById('failure-next-up-m').textContent = ' ' + t.m + 'm';
   showScreen('screen-failure');
 }
 
