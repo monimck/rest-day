@@ -847,7 +847,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="submit-screen-content">
       <div class="submit-screen-title">Submit a Boulder</div>
       <div class="submit-screen-body">
-        <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span style="font-family:'DM Mono',monospace;font-size:13px;">onsightbouldersubmissions@gmail.com</span> with the problem name, alternate names/spellings, grade, and location.
+        <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span style="font-family:'DM Mono',monospace;font-size:13px;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="117e7f6278767965737e647d7574636264737c786262787e7f6251767c70787d3f727e7c">[email&#160;protected]</a></span> with the problem name, alternate names/spellings, grade, and location.
         <div class="submit-screen-email">Your submissions are greatly appreciated!</div>
       </div>
       <button class="go-home-btn" onclick="goHome()">GO HOME</button>
@@ -856,7 +856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<script src="/puzzles.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/puzzles.js"></script>
 <script>
 
 
@@ -979,14 +979,7 @@ function renderHome() {
     num.textContent = val;
     // highlight the most common
     bar.classList.toggle('highlight', val === max && max > 0 && val > 0);
-    bar.classList.toggle('active', val > 0 && !(val === max && max > 0));
-  });
-
-  // Check if already played today
-  const today = getTodayString();
-  if (stats.lastPlayedDate === today) {
-    document.getElementById('play-btn').textContent = "VIEW TODAY'S RESULT";
-    document.getElementById('play-btn').onclick = viewTodayResult;
+    bar.classList.toggle('active', val > 0 && !(vallay-btn').onclick = viewTodayResult;
   } else {
     document.getElementById('play-btn').textContent = "PLAY TODAY'S CHALLENGE";
     document.getElementById('play-btn').onclick = startGame;
@@ -1208,4 +1201,13 @@ document.getElementById('guess-input').addEventListener('keydown', e => {
 // ─── INIT ──────────────────────────────────────────────────────────────────────
 renderHome();
 
-// ─── SERVICE WORKER ─────────────────�
+// ─── SERVICE WORKER ──────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+
+</script>
+</body>
+</html>
