@@ -4,7 +4,7 @@ A daily boulder problem guessing game. Guess the name of a boulder problem from 
 
 ## Adding Puzzles
 
-Open `puzzles.js` — this is the only file that needs to be updated when adding new problems. Add a new entry to the `PUZZLES` array for each day:
+Update `puzzles.js` — this is the only file that needs to be updated when adding new problems. Add a new entry to the `PUZZLES` array for each day:
 
 ```js
 {
