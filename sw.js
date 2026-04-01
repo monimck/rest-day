@@ -2,6 +2,7 @@ const CACHE = 'on-sight-v1';
 const ASSETS = [
   '/',
   '/index.html',
+  '/app.js',
   '/puzzles.js',
   '/manifest.json',
   '/images/Icon.png'
