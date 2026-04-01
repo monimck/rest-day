@@ -344,6 +344,7 @@ document.getElementById('guess-input').addEventListener('keydown', e => {
 
 // ─── INIT ──────────────────────────────────────────────────────────────────────
 renderHome();
+document.getElementById('submit-email').textContent = 'onsightbouldersubmissions' + '@' + 'gmail.com';
 
 // ─── SERVICE WORKER ──────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
