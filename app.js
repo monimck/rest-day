@@ -231,7 +231,7 @@ function submitGuess() {
     } else {
       state.currentGuess += 1;
       saveGameState({ date: getTodayString(), finished: false, currentGuess: state.currentGuess });
-      showToast('Incorrect — keep climbing!');
+      showToast('Incorrect — try again!');
       renderGameScreen();
     }
   }
