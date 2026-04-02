@@ -6,13 +6,13 @@
 // Fields:
 //   date     - "YYYY-MM-DD" string (today's puzzle)
 //   name     - The correct boulder problem name (case-insensitive match)
-//   grade    - e.g. "V7"
+//   grade    - e.g. "V10"
 //   location - e.g. "Bishop, CA"
 //   photo    - URL to the boulder photo (replace with your own hosted images)
 //   aliases  - Array of additional accepted answers, e.g. ["Mandala", "The Mandala"]
 //   (hints are auto-generated from grade and location — no need to enter separately)
 //
-// PHOTO NOTES: Replace the placeholder photo URLs below with your actual boulder photos.
+// PHOTO NOTES:
 // You can host photos on Google Drive, Dropbox, Imgur, or any image host.
 // Use a direct image link (ending in .jpg, .png, etc.)
 
@@ -123,19 +123,19 @@ const PUZZLES = [
   },
   {
     date: "2026-04-04",
-    name: "The Hatchling (RIP)",
-    aliases: ["Hatchling", "The Hatchling"],
-    grade: "V11",
-    location: "Rocklands, South Africa",
-    photo: "images/hatchling.jpg"
-  },
-  {
-    date: "2026-04-05",
     name: "Volition",
     aliases: [],
     grade: "V11",
     location: "Gold Bar, WA",
     photo: "images/volition.jpg"
+  },
+  {
+    date: "2026-04-05",
+    name: "The Hatchling (RIP)",
+    aliases: ["Hatchling", "The Hatchling"],
+    grade: "V11",
+    location: "Rocklands, South Africa",
+    photo: "images/hatchling.jpg"
   },
   {
     date: "2026-04-06",
@@ -147,11 +147,11 @@ const PUZZLES = [
   },
   {
     date: "2026-04-07",
-    name: "The Rhino",
-    aliases: ["Rhino"],
-    grade: "V8",
-    location: "Rocklands, South Africa",
-    photo: "images/rhino.jpg"
+    name: "Pro Touch Traverse",
+    aliases: ["Pro Touch", "Protouch Traverse", "Protouch"],
+    grade: "V6",
+    location: "Brione, Switzerland",
+    photo: "images/pro_touch.jpg"
   },
   {
     date: "2026-04-08",
@@ -243,11 +243,11 @@ const PUZZLES = [
   },
   {
     date: "2026-04-19",
-    name: "Majestic",
-    aliases: [],
-    grade: "V6",
-    location: "Squamish, BC",
-    photo: "images/majestic.jpg"
+    name: "The Rhino",
+    aliases: ["Rhino"],
+    grade: "V8",
+    location: "Rocklands, South Africa",
+    photo: "images/rhino.jpg"
   },
   {
     date: "2026-04-20",
@@ -291,11 +291,11 @@ const PUZZLES = [
   },
   {
     date: "2026-04-25",
-    name: "Tiger Claw",
-    aliases: ["Tigerclaw"],
-    grade: "V11",
-    location: "Rocklands, South Africa",
-    photo: "images/tiger_claw.jpg"
+    name: "The Shield",
+    aliases: ["Shield"],
+    grade: "V12",
+    location: "Stone Fort, TN",
+    photo: "images/shield.jpg"
   },
   {
     date: "2026-04-26",
@@ -307,11 +307,11 @@ const PUZZLES = [
   },
   {
     date: "2026-04-27",
-    name: "Pro Touch Traverse",
-    aliases: ["Pro Touch", "Protouch Traverse", "Protouch"],
+    name: "Majestic",
+    aliases: [],
     grade: "V6",
-    location: "Brione, Switzerland",
-    photo: "images/pro_touch.jpg"
+    location: "Squamish, BC",
+    photo: "images/majestic.jpg"
   },
   {
     date: "2026-04-28",
@@ -379,11 +379,11 @@ const PUZZLES = [
   },
   {
     date: "2026-05-06",
-    name: "The Shield",
-    aliases: ["Shield"],
-    grade: "V12",
-    location: "Stone Fort, TN",
-    photo: "images/shield.jpg"
+    name: "Tiger Claw",
+    aliases: ["Tigerclaw"],
+    grade: "V11",
+    location: "Rocklands, South Africa",
+    photo: "images/tiger_claw.jpg"
   },
   {
     date: "2026-05-07",
