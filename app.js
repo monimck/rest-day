@@ -5,7 +5,8 @@ const ATTEMPT_LABELS = ["ONSIGHT ATTEMPT", "2ND GO", "3RD GO", "LAST GO BEST GO"
 let state = {
   currentGuess: 0,   // 0-indexed
   puzzle: null,
-  finished: false
+  finished: false,
+  pastGuesses: []    // stores submitted guess strings in order
 };
 
 // ─── LOCALSTORAGE ──────────────────────────────────────────────────────────────
@@ -145,12 +146,14 @@ function startGame() {
   state.puzzle = getTodayPuzzle();
   state.currentGuess = 0;
   state.finished = false;
+  state.pastGuesses = [];
 
   // Restore mid-game state if same day
   const saved = loadGameState();
   const today = getTodayString();
   if (saved && saved.date === today && !saved.finished) {
     state.currentGuess = saved.currentGuess;
+    state.pastGuesses = saved.pastGuesses || [];
   }
 
   renderGameScreen();
@@ -187,8 +190,16 @@ function renderGameScreen() {
   // Dots
   for (let i = 1; i <= 4; i++) {
     const dot = document.getElementById('dot-' + i);
+    const tooltip = document.getElementById('tooltip-' + i);
+    const wrap = document.getElementById('dot-wrap-' + i);
     dot.classList.remove('wrong');
-    if (i <= g) dot.classList.add('wrong');
+    wrap.classList.remove('show-tooltip');
+    if (i <= g) {
+      dot.classList.add('wrong');
+      if (tooltip && state.pastGuesses[i - 1]) {
+        tooltip.textContent = state.pastGuesses[i - 1];
+      }
+    }
   }
 
   // Attempts counter
@@ -223,14 +234,16 @@ function submitGuess() {
   } else {
     if (g === 3) {
       // Used all 4 guesses
+      state.pastGuesses.push(input);
       let stats = loadStats();
       stats = updateStreak(stats, false);
       saveStats(stats);
-      saveGameState({ date: getTodayString(), finished: true, currentGuess: 4 });
+      saveGameState({ date: getTodayString(), finished: true, currentGuess: 4, pastGuesses: state.pastGuesses });
       showFailureScreen(stats);
     } else {
+      state.pastGuesses.push(input);
       state.currentGuess += 1;
-      saveGameState({ date: getTodayString(), finished: false, currentGuess: state.currentGuess });
+      saveGameState({ date: getTodayString(), finished: false, currentGuess: state.currentGuess, pastGuesses: state.pastGuesses });
       showToast('Incorrect — try again!');
       renderGameScreen();
     }
@@ -335,6 +348,29 @@ function openMailto() {
   const bod = '1. Problem Name: \r\n2. Alternate names or spellings: \r\n3. Grade: \r\n4. Location: \r\n5. Don\'t forget to attach your photo :)';
   window.location.href = 'mailto:' + em + '?subject=' + encodeURIComponent(sub) + '&body=' + encodeURIComponent(bod);
 }
+
+// ─── GUESS TOOLTIPS ────────────────────────────────────────────────────────────
+function toggleGuessTooltip(num) {
+  const wrap = document.getElementById('dot-wrap-' + num);
+  const dot = document.getElementById('dot-' + num);
+  if (!dot.classList.contains('wrong')) return;
+  const isShowing = wrap.classList.contains('show-tooltip');
+  // Hide all tooltips first
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('dot-wrap-' + i).classList.remove('show-tooltip');
+  }
+  if (!isShowing) wrap.classList.add('show-tooltip');
+}
+
+// Clicking elsewhere hides tooltips
+document.addEventListener('click', e => {
+  if (!e.target.closest('.guess-dot-wrap')) {
+    for (let i = 1; i <= 4; i++) {
+      const wrap = document.getElementById('dot-wrap-' + i);
+      if (wrap) wrap.classList.remove('show-tooltip');
+    }
+  }
+});
 
 // ─── EVENT LISTENERS ───────────────────────────────────────────────────────────
 document.getElementById('submit-btn').addEventListener('click', submitGuess);
