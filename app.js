@@ -181,11 +181,30 @@ function renderGameScreen() {
   photoEl.src = state.puzzle.photo;
   photoEl.style.transform = 'scale(' + zoom + ')';
 
-  // Hints (auto-generated from grade and location)
+  // Hints
   const hintEl = document.getElementById('hint-text');
-  if (g === 2) { hintEl.textContent = 'Hint: ' + state.puzzle.grade + ' boulder'; hintEl.style.display = 'block'; }
-  else if (g === 3) { hintEl.textContent = 'Hint: Located in ' + state.puzzle.location; hintEl.style.display = 'block'; }
-  else { hintEl.style.display = 'none'; }
+  if (g === 2) {
+    hintEl.textContent = 'Hint: ' + state.puzzle.grade + ' in ' + state.puzzle.location;
+    hintEl.style.display = 'block';
+    hintEl.style.cursor = 'default';
+    hintEl.onclick = null;
+  } else if (g === 3) {
+    const name = state.puzzle.name;
+    const words = name.trim().split(/\s+/);
+    const firstWord = words[0].toLowerCase() === 'the' ? words[1] : words[0];
+    const firstLetter = firstWord ? firstWord[0].toUpperCase() : '?';
+    hintEl.textContent = 'Tap to reveal first letter';
+    hintEl.style.display = 'block';
+    hintEl.style.cursor = 'pointer';
+    hintEl.onclick = () => {
+      hintEl.textContent = 'Name begins with ' + firstLetter;
+      hintEl.style.cursor = 'default';
+      hintEl.onclick = null;
+    };
+  } else {
+    hintEl.style.display = 'none';
+    hintEl.onclick = null;
+  }
 
   // Dots
   for (let i = 1; i <= 4; i++) {
