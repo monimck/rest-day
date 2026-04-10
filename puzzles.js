@@ -70,7 +70,7 @@ const PUZZLES = [
     name: "Loaded With Power",
     aliases: ["Loaded", "Loaded Direct"],
     grade: "V10",
-    location: "Hueco, TX",
+    location: "Hueco Tanks, TX",
     photo: "images/loaded_with_power.jpg"
   },
   {
@@ -400,5 +400,341 @@ const PUZZLES = [
     grade: "V13",
     location: "Leavenworth, WA",
     photo: "images/drawn_and_quartered.png"
+  },
+  {
+    date: "2026-05-09",
+    name: "Icarus",
+    aliases: [],
+    grade: "V7",
+    location: "Roy, NM",
+    photo: "images/icarus.png"
+  },
+  {
+    date: "2026-05-10",
+    name: "Sunseeker",
+    aliases: ["Sun Seeker"],
+    grade: "V12",
+    location: "Mt. Evans, CO",
+    photo: "images/sunseeker.jpg"
+  },
+  {
+    date: "2026-05-11",
+    name: "Robot Heart",
+    aliases: ["Robot Hearts"],
+    grade: "V8",
+    location: "Index, WA",
+    photo: "images/robot_heart.jpg"
+  },
+  {
+    date: "2026-05-12",
+    name: "The Game",
+    aliases: ["Game"],
+    grade: "V15",
+    location: "Boulder Canyon, CO",
+    photo: "images/the_game.png"
+  },
+  {
+    date: "2026-05-13",
+    name: "Everest",
+    aliases: ["Sagarmatha", "Everest aka Sagarmatha"],
+    grade: "V5",
+    location: "Joe's Valley, UT",
+    photo: "images/everest.jpg"
+  },
+  {
+    date: "2026-05-14",
+    name: "Flux for Life",
+    aliases: [],
+    grade: "V13",
+    location: "RMNP, CO",
+    photo: "images/flux_for_life.jpg"
+  },
+  {
+    date: "2026-05-15",
+    name: "Bierstadt",
+    aliases: ["Beirstadt"],
+    grade: "V10",
+    location: "Mt. Evans, CO",
+    photo: "images/bierstadt.jpg"
+  },
+  {
+    date: "2026-05-16",
+    name: "Circus Trick",
+    aliases: ["Circus Tricks"],
+    grade: "V6",
+    location: "Moab, UT",
+    photo: "images/circus_trick.jpg"
+  },
+  {
+    date: "2026-05-17",
+    name: "The Zodiac",
+    aliases: ["Zodiac"],
+    grade: "V12",
+    location: "Joe's Valley, UT",
+    photo: "images/the_zodiac.jpg"
+  },
+  {
+    date: "2026-05-18",
+    name: "Paint it Black",
+    aliases: ["Paint It Black"],
+    grade: "V15",
+    location: "RMNP, CO",
+    photo: "images/paint_it_black.jpg"
+  },
+  {
+    date: "2026-05-19",
+    name: "Iron Man Traverse",
+    aliases: ["Ironman Traverse", "Iron Man", "Ironman"],
+    grade: "V4",
+    location: "Bishop, CA",
+    photo: "images/iron_man_traverse.jpg"
+  },
+  {
+    date: "2026-05-20",
+    name: "Hell Belly",
+    aliases: ["Hellbelly"],
+    grade: "V11",
+    location: "Moab, UT",
+    photo: "images/hell_belly.jpg"
+  },
+  {
+    date: "2026-05-21",
+    name: "Vecchio Leone",
+    aliases: ["Old Lion", "Vechio Leone"],
+    grade: "V13",
+    location: "Brione, Switzerland",
+    photo: "images/vecchio_leone.jpg"
+  },
+  {
+    date: "2026-05-22",
+    name: "Bloodline",
+    aliases: ["Blood Line"],
+    grade: "V7",
+    location: "Hueco Tanks, TX",
+    photo: "images/bloodline.png"
+  },
+  {
+    date: "2026-05-23",
+    name: "Two Sizes Too Big",
+    aliases: ["2 Sizes 2 Big"],
+    grade: "V12",
+    location: "RMNP, CO",
+    photo: "images/two_sizes_too_big.jpg"
+  },
+  {
+    date: "2026-05-24",
+    name: "Cole's Corner",
+    aliases: ["Coles Corner"],
+    grade: "V8",
+    location: "Leavenworth, WA",
+    photo: "images/coles_corner.jpg"
+  },
+  {
+    date: "2026-05-25",
+    name: "The Big Island",
+    aliases: ["Big Island", "Soudain Seul", "Soudain Soul", "The Island"],
+    grade: "V15",
+    location: "Fontainebleau, France",
+    photo: "images/the_big_island.jpg"
+  },
+  {
+    date: "2026-05-26",
+    name: "Fingerhut",
+    aliases: ["Finger Hut"],
+    grade: "V10",
+    location: "Joe's Valley, UT",
+    photo: "images/fingerhut.png"
+  },
+  {
+    date: "2026-05-27",
+    name: "Tommy's Arete",
+    aliases: ["Tommys Arete", "Tommy Arete"],
+    grade: "V7",
+    location: "RMNP, CO",
+    photo: "images/tommys_arete.png"
+  },
+  {
+    date: "2026-05-28",
+    name: "Amber",
+    aliases: [],
+    grade: "V13",
+    location: "Brione, Switzerland",
+    photo: "images/amber.jpg"
+  },
+  {
+    date: "2026-05-29",
+    name: "Running Scared",
+    aliases: [],
+    grade: "V10",
+    location: "RMNP, CO",
+    photo: "images/running_scared.jpg"
+  },
+  {
+    date: "2026-05-30",
+    name: "Graviton",
+    aliases: [],
+    grade: "V6",
+    location: "Fontainebleau, France",
+    photo: "images/graviton.jpg"
+  },
+  {
+    date: "2026-05-31",
+    name: "Mirror Reality",
+    aliases: [],
+    grade: "V14",
+    location: "RMNP, CO",
+    photo: "images/mirror_reality.jpg"
+  },
+  {
+    date: "2026-06-01",
+    name: "Seduce and Destroy",
+    aliases: ["Seduce & Destroy"],
+    grade: "V11",
+    location: "Flock Hill, New Zealand",
+    photo: "images/seduce_and_destroy.jpg"
+  },
+  {
+    date: "2026-06-02",
+    name: "Chalk on Rock",
+    aliases: [],
+    grade: "V8",
+    location: "Lincoln Lake, CO",
+    photo: "images/chalk_on_rock.jpg"
+  },
+  {
+    date: "2026-06-03",
+    name: "The Angler",
+    aliases: ["Angler"],
+    grade: "V2",
+    location: "Joe's Valley, UT",
+    photo: "images/angler.png"
+  },
+  {
+    date: "2026-06-04",
+    name: "Both Sides of the Spectrum",
+    aliases: ["Both Sides"],
+    grade: "V12",
+    location: "RMNP, CO",
+    photo: "images/both_sides_of_the_spectrum.jpg"
+  },
+  {
+    date: "2026-06-05",
+    name: "Speed of Sound",
+    aliases: [],
+    grade: "V14",
+    location: "Rocklands, South Africa",
+    photo: "images/speed_of_sound.jpg"
+  },
+  {
+    date: "2026-06-06",
+    name: "Imothep Assis",
+    aliases: ["Imhotep Assis", "Imothep", "Imotep", "Imotep Assis", "Imothep Project", "Imothep Assis"],
+    grade: "Project",
+    location: "Fontainebleau, France",
+    photo: "images/imothep_assis_project.jpg"
+  },
+  {
+    date: "2026-06-07",
+    name: "Pretty Hate Machine",
+    aliases: ["Pretty Hate", "Pretty Machine"],
+    grade: "V8",
+    location: "Leavenworth, WA",
+    photo: "images/pretty_hate_machine.jpg"
+  },
+  {
+    date: "2026-06-08",
+    name: "Old Man of the Mountain",
+    aliases: ["Old Man on the Mountain"],
+    grade: "V10",
+    location: "Holy Cross Wilderness, CO",
+    photo: "images/old_man_of_the_mountain.jpg"
+  },
+  {
+    date: "2026-06-09",
+    name: "Jade",
+    aliases: ["Green 45", "Green 45 Stand"],
+    grade: "V14",
+    location: "RMNP, CO",
+    photo: "images/jade.jpg"
+  },
+  {
+    date: "2026-06-10",
+    name: "Seven Spanish Angels",
+    aliases: ["The Ruckus", "Ruckus"],
+    grade: "V6",
+    location: "Bishop, CA",
+    photo: "images/seven_spanish_angels.png"
+  },
+  {
+    date: "2026-06-11",
+    name: "Hour of Power",
+    aliases: [],
+    grade: "V13",
+    location: "Little Cottonwood Canyon, UT",
+    photo: "images/hour_of_power.jpg"
+  },
+  {
+    date: "2026-06-12",
+    name: "F5",
+    aliases: ["F-5"],
+    grade: "V10",
+    location: "New River Gorge, WV",
+    photo: "images/f5.jpg"
+  },
+  {
+    date: "2026-06-13",
+    name: "Chaos",
+    aliases: [],
+    grade: "V8",
+    location: "Moab, UT",
+    photo: "images/chaos.jpg"
+  },
+  {
+    date: "2026-06-14",
+    name: "Buttermilker",
+    aliases: ["The Buttermilker", "Butter Milker"],
+    grade: "V13",
+    location: "Bishop, CA",
+    photo: "images/buttermilker.png"
+  },
+  {
+    date: "2026-06-15",
+    name: "Under Heaven",
+    aliases: ["Heaven"],
+    grade: "V12",
+    location: "The Horn, UT",
+    photo: "images/under_heaven.jpg"
+  },
+  {
+    date: "2026-06-16",
+    name: "Arrowhead Arete",
+    aliases: ["Arrowhead"],
+    grade: "V10",
+    location: "Morrison, CO",
+    photo: "images/arrowhead_arete.jpg"
+  },
+  {
+    date: "2026-06-17",
+    name: "The Color",
+    aliases: ["Color"],
+    grade: "V13",
+    location: "Roy, NM",
+    photo: "images/the_color.jpg"
+  },
+  {
+    date: "2026-06-18",
+    name: "Limited Edition",
+    aliases: ["Special Edition"],
+    grade: "V10",
+    location: "Brione, Switzerland",
+    photo: "images/special_edition.jpg"
+  },
+  {
+    date: "2026-06-19",
+    name: "The Teacup",
+    aliases: ["Teacup", "Tea Cup"],
+    grade: "V13",
+    location: "Leavenworth, WA",
+    photo: "images/the_teacup.jpg"
   }
 ];
