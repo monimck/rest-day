@@ -261,8 +261,9 @@ function submitGuess() {
       let stats = loadStats();
       stats.sends = (stats.sends || 0) + 1;
       saveStats(stats);
+      const playedDate = archiveDatePlaying;
       archiveDatePlaying = null;
-      showArchiveSuccessScreen(g + 1);
+      showArchiveSuccessScreen(g + 1, playedDate);
     } else {
       let stats = loadStats();
       stats = updateStreak(stats, true);
@@ -281,8 +282,9 @@ function submitGuess() {
         let stats = loadStats();
         stats.punts = (stats.punts || 0) + 1;
         saveStats(stats);
+        const playedDate = archiveDatePlaying;
         archiveDatePlaying = null;
-        showArchiveFailureScreen();
+        showArchiveFailureScreen(playedDate);
       } else {
         let stats = loadStats();
         stats = updateStreak(stats, false);
@@ -392,19 +394,20 @@ function setArchiveResultUI(prefix, playedDate) {
   document.getElementById(prefix + '-tagline').style.display = 'none';
   document.getElementById(prefix + '-share-btn').style.display = 'none';
 
-  // Set up "Back to Archive" on the home btn
+  // Style "Back to Archive" as secondary (outline) button
   const homeBtn = document.getElementById(prefix + '-home-btn');
   homeBtn.textContent = 'BACK TO ARCHIVE';
+  homeBtn.className = 'submit-boulder-btn archive-btn';
   homeBtn.onclick = () => { goHome(); showArchiveScreen(); };
 
-  // Add "Next Proj" button if there's another unplayed puzzle
+  // Add "Next Proj" as primary button above "Back to Archive"
   const nextPuzzle = getNextUnplayedPuzzle(playedDate);
   let nextBtn = document.getElementById(prefix + '-next-proj-btn');
   if (!nextBtn) {
     nextBtn = document.createElement('button');
     nextBtn.id = prefix + '-next-proj-btn';
     nextBtn.className = 'go-home-btn';
-    nextBtn.style.cssText = 'margin-bottom:12px;background:transparent;color:var(--green);border:1.5px solid var(--green);';
+    nextBtn.style.marginBottom = '12px';
     homeBtn.parentNode.insertBefore(nextBtn, homeBtn);
   }
   if (nextPuzzle) {
@@ -422,6 +425,7 @@ function resetResultUI(prefix) {
   document.getElementById(prefix + '-share-btn').style.display = '';
   const homeBtn = document.getElementById(prefix + '-home-btn');
   homeBtn.textContent = 'GO HOME';
+  homeBtn.className = 'go-home-btn';
   homeBtn.onclick = goHome;
   const nextBtn = document.getElementById(prefix + '-next-proj-btn');
   if (nextBtn) nextBtn.style.display = 'none';
@@ -436,7 +440,7 @@ function getNextUnplayedPuzzle(afterDateStr) {
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
-function showArchiveSuccessScreen(guessNum) {
+function showArchiveSuccessScreen(guessNum, playedDate) {
   const p = state.puzzle;
   const labels = ['1 ATTEMPT', '2 ATTEMPTS', '3 ATTEMPTS', '4 ATTEMPTS'];
   document.getElementById('success-subhead').textContent = 'PROBLEM IDENTIFIED IN ' + labels[guessNum - 1];
@@ -444,18 +448,16 @@ function showArchiveSuccessScreen(guessNum) {
   document.getElementById('success-name').textContent = p.name;
   document.getElementById('success-location').textContent = p.location;
   document.getElementById('success-grade').textContent = p.grade;
-  const playedDate = archiveDatePlaying || getTodayString();
   showScreen('screen-success');
   setArchiveResultUI('success', playedDate);
 }
 
-function showArchiveFailureScreen() {
+function showArchiveFailureScreen(playedDate) {
   const p = state.puzzle;
   document.getElementById('failure-photo').src = p.photo;
   document.getElementById('failure-name').textContent = p.name;
   document.getElementById('failure-location').textContent = p.location;
   document.getElementById('failure-grade').textContent = p.grade;
-  const playedDate = archiveDatePlaying || getTodayString();
   showScreen('screen-failure');
   setArchiveResultUI('failure', playedDate);
 }
