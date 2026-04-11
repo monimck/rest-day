@@ -401,6 +401,7 @@ function setArchiveResultUI(prefix, playedDate) {
   const homeBtn = document.getElementById(prefix + '-home-btn');
   homeBtn.textContent = 'BACK TO ARCHIVE';
   homeBtn.className = 'submit-boulder-btn archive-btn';
+  homeBtn.style.marginTop = '0';
   homeBtn.onclick = () => { goHome(); showArchiveScreen(); };
 
   // Add "Next Proj" as primary button above "Back to Archive"
@@ -429,6 +430,7 @@ function resetResultUI(prefix) {
   const homeBtn = document.getElementById(prefix + '-home-btn');
   homeBtn.textContent = 'GO HOME';
   homeBtn.className = 'go-home-btn';
+  homeBtn.style.marginTop = '';
   homeBtn.onclick = goHome;
   const nextBtn = document.getElementById(prefix + '-next-proj-btn');
   if (nextBtn) nextBtn.style.display = 'none';
