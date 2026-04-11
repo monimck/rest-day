@@ -391,7 +391,7 @@ async function shareResult() {
 
 // ─── ARCHIVE SUCCESS / FAILURE ─────────────────────────────────────────────────
 // ─── HELPERS: show/hide archive UI ─────────────────────────────────────────────
-function setArchiveResultUI(prefix, playedDate) {
+function setArchiveResultUI(prefix, playedDate, reviewOnly = false) {
   // Hide stat cards, tagline, share button
   document.getElementById(prefix + '-result-stats').style.display = 'none';
   document.getElementById(prefix + '-tagline').style.display = 'none';
@@ -404,8 +404,8 @@ function setArchiveResultUI(prefix, playedDate) {
   homeBtn.style.marginTop = '0';
   homeBtn.onclick = () => { goHome(); showArchiveScreen(); };
 
-  // Add "Next Proj" as primary button above "Back to Archive"
-  const nextPuzzle = getNextUnplayedPuzzle(playedDate);
+  // Add "Next Proj" as primary button above "Back to Archive" (not shown in review mode)
+  const nextPuzzle = reviewOnly ? null : getNextUnplayedPuzzle(playedDate);
   let nextBtn = document.getElementById(prefix + '-next-proj-btn');
   if (!nextBtn) {
     nextBtn = document.createElement('button');
@@ -445,29 +445,44 @@ function getNextUnplayedPuzzle(afterDateStr) {
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
-function showArchiveSuccessScreen(guessNum, playedDate) {
+function showArchiveSuccessScreen(guessNum, playedDate, reviewOnly = false) {
   const p = state.puzzle;
   const labels = ['1 ATTEMPT', '2 ATTEMPTS', '3 ATTEMPTS', '4 ATTEMPTS'];
-  document.getElementById('success-subhead').textContent = 'PROBLEM IDENTIFIED IN ' + labels[guessNum - 1];
+  document.getElementById('success-subhead').textContent = guessNum
+    ? 'PROBLEM IDENTIFIED IN ' + labels[guessNum - 1]
+    : 'PROBLEM IDENTIFIED';
   document.getElementById('success-photo').src = p.photo;
   document.getElementById('success-name').textContent = p.name;
   document.getElementById('success-location').textContent = p.location;
   document.getElementById('success-grade').textContent = p.grade;
   showScreen('screen-success');
-  setArchiveResultUI('success', playedDate);
+  setArchiveResultUI('success', playedDate, reviewOnly);
 }
 
-function showArchiveFailureScreen(playedDate) {
+function showArchiveFailureScreen(playedDate, reviewOnly = false) {
   const p = state.puzzle;
   document.getElementById('failure-photo').src = p.photo;
   document.getElementById('failure-name').textContent = p.name;
   document.getElementById('failure-location').textContent = p.location;
   document.getElementById('failure-grade').textContent = p.grade;
   showScreen('screen-failure');
-  setArchiveResultUI('failure', playedDate);
+  setArchiveResultUI('failure', playedDate, reviewOnly);
 }
 
-// ─── GO HOME ───────────────────────────────────────────────────────────────────
+// ─── VIEW COMPLETED ARCHIVE RESULT ────────────────────────────────────────────
+function viewArchivedResult(dateStr, result) {
+  const puzzle = PUZZLES.find(p => p.date === dateStr);
+  if (!puzzle) return;
+  state.puzzle = puzzle;
+  archiveDatePlaying = null;
+  if (result === 'win') {
+    showArchiveSuccessScreen(null, dateStr, true);
+  } else {
+    showArchiveFailureScreen(dateStr, true);
+  }
+}
+
+
 function goHome() {
   archiveDatePlaying = null;
   resetResultUI('success');
@@ -641,9 +656,13 @@ function renderArchiveCalendar() {
     } else if (result === 'win') {
       circle.classList.add('sent');
       circle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      circle.style.cursor = 'pointer';
+      circle.onclick = () => { viewArchivedResult(dateStr, 'win'); };
     } else if (result === 'punt') {
       circle.classList.add('punt');
       circle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+      circle.style.cursor = 'pointer';
+      circle.onclick = () => { viewArchivedResult(dateStr, 'punt'); };
     } else if (isToday) {
       // Today, not yet played — green play (today's game)
       circle.classList.add('playable', 'today-marker');
