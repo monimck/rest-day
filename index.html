@@ -147,6 +147,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     background: var(--card);
     border-radius: 16px;
     padding: 24px;
+    margin-bottom: 24px;
   }
   .stats-row {
     display: flex;
@@ -580,6 +581,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition: border-color 0.15s, color 0.15s;
   }
   .submit-boulder-btn:hover { border-color: var(--green); color: var(--green); }
+  .archive-btn {
+    border-color: var(--green) !important;
+    color: var(--green) !important;
+    transition: border-color 0.15s, color 0.15s, background 0.15s !important;
+  }
+  .archive-btn:hover { background: rgba(74,94,74,0.08) !important; }
 
   /* SUBMIT BOULDER SCREEN */
   .submit-screen-content { padding: 40px 28px 32px; flex: 1; display: flex; flex-direction: column; }
@@ -660,6 +667,189 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .share-btn:hover { background: var(--green); color: white; }
   .share-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* ARCHIVE SCREEN */
+  .archive-content { padding: 28px 20px 32px; flex: 1; display: flex; flex-direction: column; }
+
+  .archive-month-nav {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .archive-month-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .archive-month-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+  .archive-month-year {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+  .archive-nav-btns {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+  .archive-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .archive-nav-btn:not(:disabled):hover { background: var(--bg2); border-color: var(--text-muted); }
+  .archive-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transition: none; }
+  .archive-nav-btn svg { width: 16px; height: 16px; }
+
+  /* Calendar grid */
+  .archive-cal-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
+  }
+  .archive-cal-dow {
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+  .archive-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 4px;
+  }
+  .archive-cal-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .archive-cal-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    line-height: 1;
+    min-height: 14px;
+  }
+  .archive-cal-date.today {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .archive-cal-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s;
+  }
+  .archive-cal-circle.empty {
+    background: var(--bg2);
+  }
+  .archive-cal-circle.sent {
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--green);
+  }
+  .archive-cal-circle.punt {
+    border: 2px solid #E8C0BB;
+    background: transparent;
+    color: var(--red);
+  }
+  .archive-cal-circle.playable {
+    background: var(--green);
+    color: white;
+    cursor: pointer;
+  }
+  .archive-cal-circle.playable:hover { transform: scale(1.08); }
+  .archive-cal-circle.sent:hover,
+  .archive-cal-circle.punt:hover { transform: scale(1.08); }
+  .archive-cal-circle.today-marker {
+    background: var(--green);
+    color: white;
+  }
+  .archive-cal-circle svg { width: 18px; height: 18px; }
+  .archive-cal-circle.playable svg { width: 16px; height: 16px; }
+
+  /* Legend */
+  .archive-legend {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .archive-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .archive-legend-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .archive-legend-icon.sent { border: 2px solid var(--border); color: var(--green); }
+  .archive-legend-icon.punt { border: 2px solid #E8C0BB; color: var(--red); }
+  .archive-legend-icon.playable { background: var(--green); color: white; }
+  .archive-legend-icon svg { width: 12px; height: 12px; }
+
+  /* Stats strip */
+  .archive-stats-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .archive-stat-item { text-align: center; }
+  .archive-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .archive-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
 </style>
 </head>
 <body>
@@ -677,44 +867,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="home-content">
       <div class="home-eyebrow">Daily Boulder Problem</div>
       <div class="home-title">On Sight</div>
-      <button class="play-btn" id="play-btn">PLAY TODAY'S CHALLENGE</button>
-
-      <div class="how-to-play">
-        <div class="how-title">How to Play</div>
-        <div class="how-item">
-          <div class="how-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <!-- L-shaped backing (bottom-left offset) -->
-              <path d="M2 7 L2 20 Q2 22 4 22 L17 22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- Front square -->
-              <rect x="5" y="2" width="17" height="17" rx="2.5"/>
-              <!-- Pixel-style 4: left vertical bar -->
-              <line x1="10.5" y1="6.5" x2="10.5" y2="12" stroke-width="2" stroke-linecap="square"/>
-              <!-- Pixel-style 4: horizontal crossbar -->
-              <line x1="10.5" y1="12" x2="15.5" y2="12" stroke-width="2" stroke-linecap="square"/>
-              <!-- Pixel-style 4: right vertical bar (full) -->
-              <line x1="15.5" y1="6.5" x2="15.5" y2="15.5" stroke-width="2" stroke-linecap="square"/>
-            </svg>
-          </div>
-          <div class="how-text">You get 4 attempts to guess the boulder name.</div>
-        </div>
-        <div class="how-item">
-          <div class="how-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
-            </svg>
-          </div>
-          <div class="how-text">The photo starts zoomed in and reveals more with each incorrect guess.</div>
-        </div>
-        <div class="how-item">
-          <div class="how-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-          </div>
-          <div class="how-text">One new boulder every day. Build your streak by playing daily!</div>
-        </div>
-      </div>
+      <button class="play-btn" id="play-btn" style="margin-bottom:2px;">PLAY TODAY'S CHALLENGE</button>
+      <button class="submit-boulder-btn archive-btn" style="margin-top:10px;margin-bottom:48px;" onclick="showArchiveScreen()">PLAY THE ARCHIVE</button>
 
       <div class="stats-divider"></div>
       <div class="stats-card">
@@ -754,7 +908,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
-      <button class="submit-boulder-btn" onclick="showSubmitScreen()">SUBMIT A BOULDER</button>
+
+      <div class="stats-divider"></div>
+      <div class="how-to-play">
+        <div class="how-title">How to Play</div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <!-- L-shaped backing (bottom-left offset) -->
+              <path d="M2 7 L2 20 Q2 22 4 22 L17 22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Front square -->
+              <rect x="5" y="2" width="17" height="17" rx="2.5"/>
+              <!-- Pixel-style 4: left vertical bar -->
+              <line x1="10.5" y1="6.5" x2="10.5" y2="12" stroke-width="2" stroke-linecap="square"/>
+              <!-- Pixel-style 4: horizontal crossbar -->
+              <line x1="10.5" y1="12" x2="15.5" y2="12" stroke-width="2" stroke-linecap="square"/>
+              <!-- Pixel-style 4: right vertical bar (full) -->
+              <line x1="15.5" y1="6.5" x2="15.5" y2="15.5" stroke-width="2" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="how-text">You get 4 attempts to guess the boulder name.</div>
+        </div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/>
+            </svg>
+          </div>
+          <div class="how-text">The photo starts zoomed in and reveals more with each incorrect guess.</div>
+        </div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+          </div>
+          <div class="how-text">One new boulder every day. Build your streak by playing daily!</div>
+        </div>
+        <div class="how-item">
+          <div class="how-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </div>
+          <div class="how-text">Help the game continue — <span onclick="showSubmitScreen()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Submit a Boulder</span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -832,7 +1032,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
-      <div class="result-stats">
+      <div class="result-stats" id="success-result-stats">
         <div class="result-stat-card streak-card">
           <div class="result-stat-label">Streak</div>
           <div class="result-stat-value"><span id="success-streak">0</span><span class="result-stat-unit" id="success-streak-unit">Days</span></div>
@@ -842,15 +1042,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="result-stat-value"><span class="result-time-big" id="next-up-h">14</span><span class="result-time-small" id="next-up-m">h 22m</span></div>
         </div>
       </div>
-      <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
-      <button class="share-btn" onclick="shareResult()">
+      <div class="result-tagline" id="success-tagline">Climb hard, play harder. See you tomorrow.</div>
+      <button class="share-btn" id="success-share-btn" onclick="shareResult()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
         </svg>
         SHARE RESULT
       </button>
-      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+      <button class="go-home-btn" id="success-home-btn" onclick="goHome()">GO HOME</button>
     </div>
   </div>
 
@@ -875,7 +1075,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
       </div>
-      <div class="result-stats">
+      <div class="result-stats" id="failure-result-stats">
         <div class="result-stat-card streak-card">
           <div class="result-stat-label">Streak</div>
           <div class="result-stat-value red"><span id="failure-streak">0</span><span class="result-stat-unit" id="failure-streak-unit">Days</span></div>
@@ -885,15 +1085,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="result-stat-value"><span class="result-time-big" id="failure-next-up-h">14</span><span class="result-time-small" id="failure-next-up-m">h 22m</span></div>
         </div>
       </div>
-      <div class="result-tagline">Climb hard, play harder. See you tomorrow.</div>
-      <button class="share-btn" onclick="shareResult()">
+      <div class="result-tagline" id="failure-tagline">Climb hard, play harder. See you tomorrow.</div>
+      <button class="share-btn" id="failure-share-btn" onclick="shareResult()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
         </svg>
         SHARE RESULT
       </button>
-      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+      <button class="go-home-btn" id="failure-home-btn" onclick="goHome()">GO HOME</button>
     </div>
   </div>
 
@@ -906,6 +1106,83 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span onclick="openMailto()" style="color:var(--brown);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;">Click here</span> to open in your mail app or send to <span id="submit-email" style="font-family:'DM Mono',monospace;font-size:13px;"></span> with the problem name, alternate names/spellings, grade, and location.
         <div class="submit-screen-email">Your submissions are greatly appreciated!</div>
       </div>
+      <button class="go-home-btn" onclick="goHome()">GO HOME</button>
+    </div>
+  </div>
+
+  <!-- ARCHIVE SCREEN -->
+  <div class="screen" id="screen-archive">
+    <div class="header"><div class="header-title">ON SIGHT</div></div>
+    <div class="archive-content">
+
+      <!-- Month nav -->
+      <div class="archive-month-nav">
+        <div class="archive-month-title">
+          <div class="archive-month-name" id="archive-month-name">MAR</div>
+          <div class="archive-month-year" id="archive-month-year">2026</div>
+        </div>
+        <div class="archive-nav-btns">
+          <button class="archive-nav-btn" id="archive-prev-btn" onclick="archiveNavMonth(-1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="archive-nav-btn" id="archive-next-btn" onclick="archiveNavMonth(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Day-of-week header -->
+      <div class="archive-cal-header">
+        <div class="archive-cal-dow">Sun</div>
+        <div class="archive-cal-dow">Mon</div>
+        <div class="archive-cal-dow">Tue</div>
+        <div class="archive-cal-dow">Wed</div>
+        <div class="archive-cal-dow">Thu</div>
+        <div class="archive-cal-dow">Fri</div>
+        <div class="archive-cal-dow">Sat</div>
+      </div>
+
+      <!-- Calendar cells (populated by JS) -->
+      <div class="archive-cal-grid" id="archive-cal-grid"></div>
+
+      <!-- Legend -->
+      <div class="archive-legend">
+        <div class="archive-legend-item">
+          <div class="archive-legend-icon playable">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          Proj List
+        </div>
+        <div class="archive-legend-item">
+          <div class="archive-legend-icon sent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          Send
+        </div>
+        <div class="archive-legend-item">
+          <div class="archive-legend-icon punt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          Punt
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="archive-stats-card">
+        <div class="archive-stat-item">
+          <div class="archive-stat-num" id="archive-stat-sends">0</div>
+          <div class="archive-stat-label">Total Sends</div>
+        </div>
+        <div class="archive-stat-item">
+          <div class="archive-stat-num" id="archive-stat-punts">0</div>
+          <div class="archive-stat-label">Total Punts</div>
+        </div>
+        <div class="archive-stat-item">
+          <div class="archive-stat-num" id="archive-stat-rate">—</div>
+          <div class="archive-stat-label">Success Rate</div>
+        </div>
+      </div>
+
       <button class="go-home-btn" onclick="goHome()">GO HOME</button>
     </div>
   </div>
