@@ -436,7 +436,7 @@ function getNextUnplayedPuzzle(afterDateStr) {
   const history = loadArchiveHistory();
   // Find past puzzles after the given date, not yet played, sorted ascending
   return PUZZLES
-    .filter(p => p.date > afterDateStr && p.date < todayStr && !history[p.date])
+    .filter(p => p.date > afterDateStr && p.date <= todayStr && !history[p.date])
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
